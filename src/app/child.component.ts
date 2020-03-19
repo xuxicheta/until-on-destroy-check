@@ -5,7 +5,7 @@ import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-child',
-  template: `<p>child: {{id}}</p>`,
+  template: `<p>child  {{id}}</p>`,
 })
 export class ChildComponent implements OnInit {
   id: string;
@@ -18,17 +18,17 @@ export class ChildComponent implements OnInit {
 
   @UntilOnDestroy()
   sub1(): Subscription {
-    console.log(this.id, 'sub1 subscribe');
+    console.log('Component decorated subscribe', this.id);
     return NEVER.pipe(
-      finalize(() => console.log(this.id, 'sub1 unsubscribe'))
+      finalize(() => console.log('Component decorated unsubscribe', this.id))
     )
       .subscribe();
   }
 
   sub2(): Subscription {
-    console.log(this.id, 'sub2 subscribe');
+    console.log('Component non-decorated subscribe', this.id);
     return NEVER.pipe(
-      finalize(() => console.log(this.id, 'sub2 unsubscribe'))
+      finalize(() => console.log('Component non-decorated unsubscribe', this.id))
     )
       .subscribe();
   }
